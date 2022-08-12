@@ -1,0 +1,35 @@
+stages:
+    - push-staging
+    - push-prod
+
+push-app-staging:
+    image: 
+        name: amazon/aws-cli
+        entrypoint: [""]
+    
+    stage: push-staging
+    script:
+        - aws --version
+       # - aws deploy push --application-name kodekloud-ecommerce --description "app revision"  --ignore-hidden-files  --s3-location s3://kodekloud-codedeploy-bucket/kodekloud-4.zip source .
+
+
+push-app-prod:
+    image:
+        name:  amazon/aws-cli
+        entrypoint: [""]
+
+    stage: push-prod
+    when: manual
+    rules:
+        - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    script: 
+        - aws --version
+        # - aws deploy push --application-name commerce-app --description "prod-apprevison" --ignore-hidden-files --s3-location s3://kodekloud-prod-bucket/kodekloud.zip source .
+    
+
+    
+        
+
+        
+
+
